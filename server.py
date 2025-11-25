@@ -3,7 +3,7 @@ Flask Integral Calculator Application
 Aplicación modular para cálculo de integrales usando SymPy
 """
 
-from server import create_app
+from app import create_app
 
 # Crear instancia de la aplicación
 app = create_app()
