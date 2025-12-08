@@ -777,6 +777,176 @@ body {
 }
 
 /* ========================================
+   Floating Survey Button
+   ======================================== */
+
+.survey-button {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    background: var(--primary-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-lg), 0 0 30px rgba(102, 126, 234, 0.5);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    z-index: 999;
+    text-decoration: none;
+    animation: float-button 3s ease-in-out infinite, pulse-glow 2s ease-in-out infinite;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.survey-button::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--primary-gradient);
+    opacity: 0.4;
+    animation: pulse-ring 2s ease-out infinite;
+}
+
+.survey-button:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: var(--shadow-lg), 0 0 40px rgba(102, 126, 234, 0.8);
+    background: var(--secondary-gradient);
+    animation: float-button 3s ease-in-out infinite;
+    /* Stop pulse on hover */
+}
+
+.survey-button:active {
+    transform: translateY(-2px) scale(1.05);
+}
+
+.survey-icon {
+    width: 28px;
+    height: 28px;
+    color: white;
+    transition: transform var(--transition-normal);
+    position: relative;
+    z-index: 1;
+}
+
+.survey-button:hover .survey-icon {
+    transform: rotate(5deg) scale(1.1);
+}
+
+/* Notification Badge */
+.survey-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.5);
+    z-index: 2;
+    animation: badge-bounce 2s ease-in-out infinite;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Enhanced Tooltip */
+.survey-tooltip {
+    position: absolute;
+    right: 75px;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(26, 26, 46, 0.95) 100%);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-normal), transform var(--transition-normal);
+    transform: translateX(10px);
+    border: 1px solid rgba(102, 126, 234, 0.3);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.tooltip-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    white-space: nowrap;
+}
+
+.tooltip-subtitle {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+.survey-button:hover .survey-tooltip {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Animations */
+@keyframes float-button {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        box-shadow: var(--shadow-lg), 0 0 30px rgba(102, 126, 234, 0.5);
+    }
+
+    50% {
+        box-shadow: var(--shadow-lg), 0 0 40px rgba(102, 126, 234, 0.8);
+    }
+}
+
+@keyframes pulse-ring {
+    0% {
+        transform: scale(1);
+        opacity: 0.4;
+    }
+
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+@keyframes badge-bounce {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-3px) scale(1.05);
+    }
+}
+
+/* ========================================
    Responsive Design
    ======================================== */
 
@@ -805,6 +975,28 @@ body {
     .button-grid {
         grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
     }
+
+    /* Survey button adjustments for tablets */
+    .survey-button {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 55px;
+        height: 55px;
+    }
+
+    .survey-icon {
+        width: 26px;
+        height: 26px;
+    }
+
+    .survey-badge {
+        font-size: 0.6rem;
+        padding: 0.2rem 0.4rem;
+    }
+
+    .survey-tooltip {
+        min-width: 180px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -825,5 +1017,30 @@ body {
     .function-btn {
         padding: 0.4rem 0.5rem;
         font-size: 0.85rem;
+    }
+
+    /* Survey button adjustments for small mobile */
+    .survey-button {
+        bottom: 1rem;
+        right: 1rem;
+        width: 50px;
+        height: 50px;
+    }
+
+    .survey-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .survey-badge {
+        font-size: 0.55rem;
+        padding: 0.15rem 0.35rem;
+        top: -3px;
+        right: -3px;
+    }
+
+    .survey-tooltip {
+        display: none;
+        /* Hide tooltip on small screens */
     }
 }
